@@ -1,19 +1,13 @@
 package com.example.JOOQPROJECT.service;
-import com.example.jooq.generated.routines.UpdateUserProfile;
 
 import com.example.JOOQPROJECT.UserProfileRequest;
 import com.example.jooq.generated.tables.records.UserProfileRecord;
 import com.example.jooq.generated.tables.records.UserProfileViewRecord;
-import com.example.jooq.generated.routines.UpdateUserProfile;
 import com.example.jooq.generated.tables.UserProfile;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.example.jooq.generated.tables.UserProfileView;
 
-import static org.jooq.impl.DSL.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -47,7 +41,7 @@ public class UserProfileService {
     }
 
     
- public Optional<UserProfileRecord> getUserById(Long id) {
+public Optional<UserProfileRecord> getUserById(Long id) {
     return Optional.ofNullable(
         dsl.selectFrom(UserProfile.USER_PROFILE)
            .where(UserProfile.USER_PROFILE.ID.eq(id))
