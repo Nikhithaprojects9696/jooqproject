@@ -44,11 +44,22 @@ public ResponseEntity<Map<String, Object>> getById(@PathVariable Long id) {
             .orElse(ResponseEntity.notFound().build());
 }
 
-@GetMapping
-@Operation(summary = "Get all user profiles")
+@GetMapping("/age18")
+@Operation(summary = "Get all user profiles Age18")
 public ResponseEntity<List<Map<String, Object>>> getAll() {
-    return ResponseEntity.ok(service.getAllUsersAsMapList()); 
+    return ResponseEntity.ok(service.getAllUsersAge18AsMapList()); 
 }
+
+@GetMapping
+@Operation(summary = "Get all user profiles (with pagination)")
+public ResponseEntity<List<Map<String, Object>>> getAllUsers(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size) {
+    
+    List<Map<String, Object>> users = service.getAllUsersAsMapList(page, size);
+    return ResponseEntity.ok(users);
+}
+
 
 
 

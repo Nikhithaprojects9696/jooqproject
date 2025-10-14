@@ -52,7 +52,7 @@ public class UserProfileService {
 
 
 
-public List<Map<String, Object>> getAllUsersAsMapList() {
+public List<Map<String, Object>> getAllUsersAge18AsMapList() {
     return dsl.selectFrom(UserProfileView.USER_PROFILE_VIEW)
               .fetch()
               .stream()
@@ -60,6 +60,17 @@ public List<Map<String, Object>> getAllUsersAsMapList() {
               .map(UserProfileViewRecord::intoMap)  
               .toList();
 }
+
+public List<Map<String, Object>> getAllUsersAsMapList(int page, int size) {
+    int offset = page * size;
+
+    return dsl.selectFrom(UserProfileView.USER_PROFILE_VIEW)
+              .limit(size)
+              .offset(offset)
+              .fetch()
+              .map(UserProfileViewRecord::intoMap);
+}
+
 
 
 public List<UserProfileViewRecord> getAllSortedUsersAsList() {
