@@ -47,12 +47,9 @@ public ResponseEntity<Map<String, Object>> getById(@PathVariable Long id) {
 @GetMapping
 @Operation(summary = "Get all user profiles")
 public ResponseEntity<List<Map<String, Object>>> getAll() {
-    return ResponseEntity.ok(
-        service.getUniqueEmails().stream()
-               .map(Record::intoMap)   
-               .toList()
-    );
+    return ResponseEntity.ok(service.getAllUsersAsMapList()); 
 }
+
 
 
     @PutMapping("/{id}")

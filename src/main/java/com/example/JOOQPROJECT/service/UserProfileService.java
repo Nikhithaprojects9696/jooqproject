@@ -1,23 +1,18 @@
 package com.example.JOOQPROJECT.service;
-import com.example.jooq.generated.routines.UpdateUserProfile;
 
 import com.example.JOOQPROJECT.UserProfileRequest;
 import com.example.jooq.generated.tables.records.UserProfileRecord;
 import com.example.jooq.generated.tables.records.UserProfileViewRecord;
-import com.example.jooq.generated.routines.UpdateUserProfile;
 import com.example.jooq.generated.tables.UserProfile;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.example.jooq.generated.tables.UserProfileView;
 
-import static org.jooq.impl.DSL.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -57,13 +52,15 @@ public class UserProfileService {
 
 
 
-public List<UserProfileViewRecord> getAllUsersAsList() {
+public List<Map<String, Object>> getAllUsersAsMapList() {
     return dsl.selectFrom(UserProfileView.USER_PROFILE_VIEW)
               .fetch()
               .stream()
-              .filter(user -> user.getAge() != null && user.getAge() > 10)
+              .filter(user -> user.getAge() != null && user.getAge() > 18) 
+              .map(UserProfileViewRecord::intoMap)  
               .toList();
 }
+
 
 public List<UserProfileViewRecord> getAllSortedUsersAsList() {
     return dsl.selectFrom(UserProfileView.USER_PROFILE_VIEW)
